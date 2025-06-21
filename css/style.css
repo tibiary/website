@@ -1,0 +1,116 @@
+
+
+@font-face{
+	font-family: bootstrapFont;
+	src: url(../font/glyphicons-halflings-regular.woff);
+}
+@font-face{
+	font-family: ghost1;
+	src: url(../font/Ghost theory 1.ttf);
+}
+@font-face{
+	font-family: ghost2;
+	src: url(../font/Ghost theory 2.ttf);
+}
+@font-face{
+	font-family: arggotsc;
+	src: url(../font/Arggotsc.ttf);
+}
+
+body{
+	color: rgba(224,213,228,1);
+}
+.header{
+	margin-top: 50px;
+	height: 200px;
+	background-image: url(../img/community.jpg);
+	background-position-y: -240px;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.logo{
+	max-width: 200px;
+	background-image: url(../img/logo.png);
+	background-repeat: no-repeat;
+    background-size: cover;
+}
+.factsheet #title{
+	color: rgba(224,213,228,1);
+	text-align: center;
+	font-family: ghost2;
+	font-size: 36px;
+}
+.factsheet li{
+	color: rgba(224,213,228,1);
+}
+
+.blog{
+	padding-top: 10px;
+	color: rgba(224,213,228,1);
+}
+.faceButton{
+	color: rgba(224,213,228,1); 
+	background-color: #152c3c;
+	padding: 20px;
+}
+
+.faceButton p {
+	font-size: 16px;
+}
+
+.blog .historia{
+	color: rgba(224,213,228,1);
+}
+
+td img {
+	max-height: 30px;
+	max-width: 30px;
+}
+
+.register {
+	margin-top: 30px;
+	color: white;
+}
+
+.registerResponse {
+	padding: 10px;
+}
+
+.with-errors {
+	color: #FF4F4F !important;
+}
+
+.loader {
+    border: 3px solid #f3f3f3; /* Light grey */
+    border-top: 3px solid grey; /* Blue */
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+	animation: spin 2s linear infinite;
+}
+.hide {
+	display: none !important;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.white {
+	color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.disabled {
+	background-color: rgba(25, 36, 37, .9) !important;
+}
+
+@-moz-document url-prefix() {
+	.dropdown-item {
+		white-space: unset !important;
+	}
+
+}
+.modal-backdrop {
+	z-index: 0 !important;
+}

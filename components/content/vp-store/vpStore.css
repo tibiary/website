@@ -1,0 +1,27 @@
+.outerBox {
+    height: 100px;
+    background-color: rgba(48, 55, 127, .1);
+    margin: 2%; 
+    float: left; 
+    position: relative;
+    padding-left: 0;
+    padding-right: 0;
+
+}
+.outerBox a {
+    color: white !important;
+}
+
+.storeItemName {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.storeContentBottom {
+    height: 20%;
+}
+
+.storeButton{
+    color: white;
+}
+/* # sourceURL=vpStore.css */

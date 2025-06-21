@@ -1,0 +1,62 @@
+<script>
+    $(document).ready(function(){
+        $('#registerMenu').click(function(){
+            $('#content').load('components/content/register.html');
+        })
+    });
+    
+    $('#modalRecoverPassword').on('shown.bs.modal', function () {
+        $('#emailRecoverPassword').trigger('focus')
+    });
+</script>
+<!-- IF -->        
+<!-- Aqui, Esse dropdown só deve aparecer caso não esteja logado -->
+<div class="dropdown">
+    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Gerenciar Conta
+    </button>
+    <div class="dropdown-menu bg-dark" style="right: 0; left: unset; color: white; min-width: 250px;">
+        <h4 id="loginMessage"></h4>
+        <form id="loginForm" class="px-4 py-3" onsubmit="localUser.login(); return false;">
+            <div class="form-group">
+                <label for="loginEmail">Username</label>
+                <input type="text" class="form-control" id="loginUsername" placeholder="Username" name="username">
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Senha</label>
+                <input type="password" class="form-control" id="loginPassword" placeholder="Password" name="password">
+            </div>
+            <button id="btnLogin" class="btn btn-primary">Login</button>
+        </form>
+        <div class="dropdown-divider"></div>
+        <a id="registerMenu" class="dropdown-item" style="color: white;" href="#">Não possui cadastro? Registre</a>
+        <a class="dropdown-item" style="color: white;" href="#" data-toggle="modal" data-target="#modalRecoverPassword">Esqueceu a Senha?</a>
+        </div>
+</div>
+<!-- ENDIF -->
+
+<!-- Modal -->
+<div class="modal fade" id="modalRecoverPassword" tabindex="-1" role="dialog" aria-labelledby="modalRecoverPassword" aria-hidden="true">
+    <div class="modal-dialog bg-dark" role="document" style="color: white">
+      <div class="modal-content bg-dark">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalRecoverPasswordLabel">Recuperar Senha</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        <form id="recoverPasswordForm" class="px-4 py-3" onsubmit="startRecoverPassword(); return false;">
+            <div class="form-group">
+                <label for="email">Email da conta</label>
+                <input type="email" class="form-control" id="emailRecoverPassword" placeholder="Email" name="email">
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="recoverPasswordButton" class="btn btn-primary">Enviar</button>
+            </div>
+         </form>
+        </div>
+      </div>
+    </div>
+  </div>

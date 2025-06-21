@@ -1,0 +1,42 @@
+<script>
+    $(document).ready(function(){
+        localUser.createVoteLinks();
+        $('#changePasswordLink').click(function(){
+            $('#content').load('components/content/recoverPassword.html');
+        });
+        $('#vp_counter').text(localUser.getVotes() + ' pts.');     
+        $('#voteList').click(function(){
+            $('#content').load('components/content/voteHistory.html');
+         });
+        $('#voteStore').click(function(){
+            $('#content').load('components/content/vp-store/vpStore.html');
+ 
+        });
+        $('#logout').click(function(){
+            localUser.logout();
+        })
+        $('#voteStore').tooltip()
+    });
+</script>
+<!-- IF -->        
+<!-- Aqui, Esse dropdown só deve aparecer caso não esteja logado -->
+<div class="dropdown">
+    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Gerenciar Conta
+    </button>
+    <div class="dropdown-menu bg-dark" style="right: 0; left: unset; color: white; min-width: 250px;">
+
+        <h4 id="loginMessage"></h4>
+        <a class="dropdown-item white disabled">Change E-mail</a>
+        <a id="changePasswordLink" class="dropdown-item white" href="#">Change Password</a> 
+        
+        <div class="dropdown-divider"></div>
+        <a id="voteList" class="dropdown-item white" >Histórico de Votos</a>        
+        <a id="voteStore" class="dropdown-item white" tabindex="0" data-toggle="tooltip" data-placement="left" title="Apenas votos com intervalos de 12h serão contabilizados!" >Vote Store<span class="float-right" id="vp_counter">0 pts</span></a>        
+    
+        <div class="dropdown-divider"></div>
+        <a id="logout" class="dropdown-item white" href="#"> LogOut</a>
+        <div class="dropdown-divider"></div>
+        </div>
+</div>
+<!-- ENDIF -->
