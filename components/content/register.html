@@ -1,0 +1,48 @@
+<div class="register col-md-6 offset-md-3">
+    <div class="registerResponse col-auto">
+        <h3 id="registerResponse"></h3>
+    </div>
+    <form id="registerForm" data-toggle="validator" onsubmit="return false;">
+        <input id="gResponse" type="hidden" name="gResponse" value="">
+        <div class="form-group">
+            <label for="email" class="control-label">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email" required>
+            <small id="emailHelp" class="form-text text-muted">E-mail para contato em caso de perda de senha!</small>
+        </div>
+        <div class="form-group">
+            <label for="username" class="control-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" data-minlength="4" aria-describedby="usernameHelp" placeholder="Username" required>
+            <small id="usernameHelp" class="form-text text-muted">Você logará utilizando-o!</small>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword" class="control-label">Password</label>
+            <input type="password" class="form-control" id="inputPassword" name="password" data-minlength="6" placeholder="Password" aria-describedby="passwordHelp" required>
+            <small id="passwordHelp" class="form-text text-muted">Minimo de 6 caracteres!</small>            
+        </div>
+        <div class="form-group">
+            <label for="inputPasswordConfirm" class="control-label">Confirm Password</label>
+            <input type="password" class="form-control" id="inputPasswordConfirm" name="passwordConfirm" data-minlength="6" placeholder="Confirm Password" data-match="#inputPassword" data-match-error="Password don't match!" required>
+            <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+            <label for="inputRecruitAFriend" class="control-label">Recruit a Friend</label>
+            <input type="text" name="recruiter" id="recruiterInput" class="form-control", data-minlength="2" placeholder="Quem lhe indicou?">
+            <small id="helpRecruiter" class="form-text text-muted">Nome do char de quem lhe indicou!</small>
+        </div>
+    <button
+        id="buttonRegister"
+        class="g-recaptcha btn btn-primary"
+        data-sitekey="6Ld3W1EUAAAAADylEASW73sRUi_tqXkZ6O5ITFw6"
+        data-callback="recaptchaRegister">
+        Cadastrar
+    </button>
+    <div id="loaderRegister" class="loader hide"></div>
+    </form>
+
+</div>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script>
+    $(document).ready(function(){
+        $('#registerForm').validator()
+    });
+</script>

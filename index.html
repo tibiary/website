@@ -1,0 +1,77 @@
+<html lang="pt-br">
+
+<head>
+	<link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+	<link async rel="stylesheet" type="text/css" href="css/style.css">
+	<link async rel="stylesheet" type="text/css" href="css/jquery.toast.css">
+	<link async defer rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+		integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	<link async href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script async src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+	<script async src="js/defines.js"></script>
+	<script async src="js/jquery.toast.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="js/core/core.js"></script>
+	<script src="js/user.js"></script>
+	<script src="js/store.js"></script>
+	<script async src="js/events.js"></script>
+	<script async defer
+		src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+	<script async defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.bundle.min.js"
+		integrity="sha384-lZmvU/TzxoIQIOD9yQDEpvxp6wEU32Fy0ckUgOH4EIlMOCdR823rg4+3gWRwnX1M"
+		crossorigin="anonymous"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Tibiary!">
+	<meta name="keywords"
+		content="Tibia, Bestiary, Charms, Gaming, Global, Tutorial">
+	<meta property="og:url" content="https://wow.tibiary.nullsrv.com/" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Tibiary - Do your best!" />
+	<meta property="og:description" content="Tibiary - Do your bestiary without  !" />
+	<meta property="og:image" content="" />
+	<title>Tibiary - Do your best...iary.!</title>
+</head>
+
+<body class="container-fluid" style="background-color: rgba(25, 36, 37, .9);">
+	<div id="header" class="container-max-width"></div>
+	<div id="navbar" class="container-max-width"></div>
+	<div id="content" class="container-max-width"></div>
+	<div id="bottom" class="container"></div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="modalDefault" tabindex="-1" role="dialog" aria-labelledby="modalRecoverPassword"
+		aria-hidden="true">
+		<div class="modal-dialog bg-dark" role="document" style="color: white">
+			<div id="modalDefaultContent" class="modal-content bg-dark">
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
+<script>
+	var localUser;
+	try{
+		localUser = new User();
+	} catch (e) {
+		console.error(e)
+		window.location.href = "chrome.html";
+	}
+	$(document).ready(function () {
+		// Usuário
+
+		$('#header').load('components/header.html');
+		$('#navbar').load('components/navbar.html');
+		$('#content').load('components/content/index.html');
+		doToastr('info', 'Welcome', '<b> Welcome!! </b>', false);
+		// Enables Tooltip
+		if (localUser.isLoggedIn())
+			localUser.getSession();
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+</script>

@@ -1,0 +1,55 @@
+<script src="https://wow.zamimg.com/widgets/power.js"></script>
+<script>
+	var whTooltips = { colorLinks: true, iconizeLinks: true, renameLinks: true };
+	$(document).ready(function () {
+		var menuStoreType = ['#storeTypeWeapons', '#storeTypeArmors', '#storeTypeRep', '#storeTypeMounts', '#storeTypeProf'];
+
+		let store = localUser.getStore();
+		store.getCharacters();
+		store.populateItens(2);
+		$('#storeTypeWeapons').click(function () {
+			store.toggle_active_itens(0)
+			store.populateItens(2);
+		});
+		$('#storeTypeArmors').click(function () {
+			store.toggle_active_itens(1)
+			store.populateItens(4);
+		});
+		$('#storeTypeMounts').click(function () {
+			store.toggle_active_itens(3)
+			store.populateItens(15);
+		});
+		$('#storeTypeRep').click(function () {
+			store.toggle_active_itens(2)
+			store.populateItens(99);
+		});
+		$('#storeTypeProf').click(function () {
+			store.toggle_active_itens(4)
+			store.populateItens(98);
+		});
+		$('#storeTypeServices').click(function () {
+			store.toggle_active_itens(5)
+			store.populateServiceStore();
+		});
+	});
+</script>
+<link async rel="stylesheet" type="text/css" href="components/content/vp-store/vpStore.css">
+
+<div class="row" style="margin-top: 20px;">
+	<div class="offset-md-2 col-md-3">
+		<span class="float-right text-light">Selecione o Personagem</span>
+	</div>
+	<div class="col-md-5">
+		<select class="form-control" name="storeCharacterSelect" id="storeCharacterSelect"></select>
+	</div>
+</div>
+<nav class="nav nav-pills flex-column flex-sm-row navbar-dark" role="tablist">
+	<a id="storeTypeWeapons" href="#" class="nav-link active text-light">Armas</a>
+	<a id="storeTypeArmors" href="#" class="nav-link text-light">Armaduras</a>
+	<a id="storeTypeMounts" href="#" class="nav-link text-light">Montarias</a>
+	<a id="storeTypeRep" href="#" class="nav-link text-light">Reputacão</a>
+	<a id="storeTypeProf" href="#" class="nav-link text-light">Profissão</a>
+	<a id="storeTypeServices" href="#" class="nav-link text-light">Serviços</a>
+
+</nav>
+<div id="storeContent" class="offset-md-1"></div>
