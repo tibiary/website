@@ -1,0 +1,59 @@
+name: Deploy Static Website to GitHub Pages
+
+on:
+  push:
+    branches:
+    - main
+    - dev
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  deploy-static-files:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to push to the gh-pages branch
+      pages: write # Required to deploy to GitHub Pages
+      id-token: write # Required for OpenID Connect (if using environment/OIDC setup)
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        # Fetch all history for git describe if needed (e.g., for versioning)
+        fetch-depth: 0
+
+    - name: Get Pages URL for Main/Dev/PR
+      id: pages_url
+      run: |
+        REPO_NAME="${{ github.event.repository.name }}"
+        OWNER_NAME="${{ github.repository_owner }}"
+
+        if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+          # For PRs, deploy to a sub-path like: https://<owner>.github.io/<repo>/pr-<PR_NUMBER>/
+          echo "::set-output name=DEPLOYMENT_URL::https://${OWNER_NAME}.github.io/${REPO_NAME}/pr-${{ github.event.number }}/"
+          echo "::set-output name=DEPLOY_DESTINATION::pr-${{ github.event.number }}"
+
+        elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+          # For the main branch, deploy to the root of the Pages site: https://<owner>.github.io/<repo>/
+          echo "::set-output name=DEPLOYMENT_URL::https://${OWNER_NAME}.github.io/${REPO_NAME}/"
+          echo "::set-output name=DEPLOY_DESTINATION::" # Empty means root
+
+        elif [[ "${{ github.ref }}" == "refs/heads/dev" ]]; then
+          # For the dev branch, deploy to a 'dev/' subdirectory: https://<owner>.github.io/<repo>/dev/
+          echo "::set-output name=DEPLOYMENT_URL::https://${OWNER_NAME}.github.io/${REPO_NAME}/dev/"
+          echo "::set-output name=DEPLOY_DESTINATION::dev"
+
+        fi
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./ # Publish the root of the repository
+        destination: ${{ steps.pages_url.outputs.DEPLOY_DESTINATION }}
+
+    - name: Output Deployment URL
+      run: |
+        echo "Website deployment initiated. The URL will be available shortly at: ${{ steps.pages_url.outputs.DEPLOYMENT_URL }}"
+        echo "::notice file=README.md::Website deployed at ${{ steps.pages_url.outputs.DEPLOYMENT_URL }}"
