@@ -1,15 +1,6 @@
 <html lang="pt-br">
 
 <head>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-117102630-1"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag() { dataLayer.push(arguments); }
-		gtag('js', new Date());
-
-		gtag('config', 'UA-117102630-1');
-	</script>
 	<link rel="shortcut icon" type="image/png" href="img/favicon.png" />
 	<link async rel="stylesheet" type="text/css" href="css/style.css">
 	<link async rel="stylesheet" type="text/css" href="css/jquery.toast.css">
@@ -17,7 +8,7 @@
 		integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 	<link async href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 	<script async src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 	<script async src="js/defines.js"></script>
@@ -35,15 +26,15 @@
 		crossorigin="anonymous"></script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="WOTLK BR sem donate!">
+	<meta name="description" content="Tibiary!">
 	<meta name="keywords"
-		content="WOTLK, Wotlk, wow, wow 3.3.5, 3.3.5, 3.3.5a, World of Warcraft, WOW, Warcraft, Litch, Litch King, King, Server, Server wow">
-	<meta property="og:url" content="https://wow.nullservers.com/" />
+		content="Tibia, Bestiary, Charms, Gaming, Global, Tutorial">
+	<meta property="og:url" content="https://wow.tibiary.nullsrv.com/" />
 	<meta property="og:type" content="website" />
-	<meta property="og:title" content="NullWoW - Comunidade e Diversão!" />
-	<meta property="og:description" content="Mais nova crecente comunidade de World of Warcraft 3.3.5a!" />
-	<meta property="og:image" content="https://wow.nullservers.com/img/community.jpg" />
-	<title>NullWoW - WoW de verdade!</title>
+	<meta property="og:title" content="Tibiary - Do your best!" />
+	<meta property="og:description" content="Tibiary - Do your bestiary without  !" />
+	<meta property="og:image" content="" />
+	<title>Tibiary - Do your best...iary.!</title>
 </head>
 
 <body class="container-fluid" style="background-color: rgba(25, 36, 37, .9);">
@@ -77,7 +68,7 @@
 		$('#header').load('components/header.html');
 		$('#navbar').load('components/navbar.html');
 		$('#content').load('components/content/index.html');
-		doToastr('info', 'Facebook & Discord', 'Não se equeça de participar do nosso Discord e do nosso Facebook também! <br> <b> Contamos com você! </b>', false);
+		doToastr('info', 'Welcome', '<b> Welcome!! </b>', false);
 		// Enables Tooltip
 		if (localUser.isLoggedIn())
 			localUser.getSession();

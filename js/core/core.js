@@ -1,6 +1,6 @@
 class Requests {
     constructor (){
-        this.API_URI = 'https://api.wow.nullservers.com/';
+        this.API_URI = GLOBAL_API_URI;
     }
 
     /**
