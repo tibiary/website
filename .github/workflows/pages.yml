@@ -1,58 +1,46 @@
-name: Deploy Static Website to GitHub Pages
+name: Deploy Website to GitHub Pages
 
 on:
   push:
     branches:
-    - main
-    - dev
+      - main
+      - dev
   pull_request:
-    types: [ opened, synchronize, reopened ]
 
 jobs:
-  deploy-static-files:
+  deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Required to push to the gh-pages branch
-      pages: write # Required to deploy to GitHub Pages
-      id-token: write # Required for OpenID Connect (if using environment/OIDC setup)
+      contents: read
+      pages: write
+      id-token: write
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        # Fetch all history for git describe if needed (e.g., for versioning)
-        fetch-depth: 0
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-    - name: Get Pages URL for Main/Dev/PR
-      id: pages_url
-      run: |
-        REPO_NAME="${{ github.event.repository.name }}"
-        OWNER_NAME="${{ github.repository_owner }}"
+      - name: Set deployment path
+        id: deployment_path
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "path=pr-${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.ref_name }}" == "dev" ]]; then
+            echo "path=dev" >> $GITHUB_OUTPUT
+          else
+            echo "path=." >> $GITHUB_OUTPUT
+          fi
 
-        if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-          # For PRs, deploy to a sub-path like: https://<owner>.github.io/<repo>/pr-<PR_NUMBER>/
-          echo "::set-output name=DEPLOYMENT_URL::https://${OWNER_NAME}.github.io/${REPO_NAME}/pr-${{ github.event.number }}/"
-          echo "::set-output name=DEPLOY_DESTINATION::pr-${{ github.event.number }}"
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
-        elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-          # For the main branch, deploy to the root of the Pages site: https://<owner>.github.io/<repo>/
-          echo "::set-output name=DEPLOYMENT_URL::https://${OWNER_NAME}.github.io/${REPO_NAME}/"
-          echo "::set-output name=DEPLOY_DESTINATION::" # Empty means root
+      - name: Upload website content
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./
+          name: github-pages
 
-        elif [[ "${{ github.ref }}" == "refs/heads/dev" ]]; then
-          # For the dev branch, deploy to a 'dev/' subdirectory: https://<owner>.github.io/<repo>/dev/
-          echo "::set-output name=DEPLOYMENT_URL::https://${OWNER_NAME}.github.io/${REPO_NAME}/dev/"
-          echo "::set-output name=DEPLOY_DESTINATION::dev"
-        fi
-
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./ # Publish the root of the repository
-        destination: ${{ steps.pages_url.outputs.DEPLOY_DESTINATION }}
-
-    - name: Output Deployment URL
-      run: |
-        echo "Website deployment initiated. The URL will be available shortly at: ${{ steps.pages_url.outputs.DEPLOYMENT_URL }}"
-        echo "::notice file=README.md::Website deployed at ${{ steps.pages_url.outputs.DEPLOYMENT_URL }}"
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages
+          target_path: ${{ steps.deployment_path.outputs.path }}
