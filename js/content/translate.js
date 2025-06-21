@@ -1,35 +1,14 @@
-async function loadAndTranslate(template, content) {
-  const result = translateTemplate(template, content);
-  const html = renderTemplate(result);
+async function loadPage(templateJSON, contentJSON) {
+  const templateHtml = await fetch(`content/templates/v1.html`).then(res => res.text());
+  const html = renderTemplate(templateHtml, templateJSON.v1, contentJSON.v1);
   $('#content').html(html);
 }
 
-function translateTemplate(template, content) {
-  function translate(templateNode, contentNode) {
-    if (typeof templateNode === 'string') return contentNode ?? '';
-    if (Array.isArray(templateNode)) {
-      return Array.isArray(contentNode)
-        ? contentNode.map((item, i) => translate(templateNode[0], item))
-        : [];
-    }
-    if (typeof templateNode === 'object' && templateNode !== null) {
-      const result = {};
-      for (const key in templateNode) {
-        result[key] = translate(templateNode[key], contentNode?.[key]);
-      }
-      return result;
-    }
-    return null;
-  }
-  return translate(template, content);
-}
+function renderTemplate(templateStr, templateSchema, contentData) {
+  const merged = translate(templateSchema, contentData);
 
-function renderTemplate(data) {
-  const { v1 } = data;
-  const { header, content, footer, tags } = v1.components;
-
-  const stepsHtml = content.body.steps.map(step => 
-    `
+  // Render steps
+  const steps = merged.components.content.body.steps.map(step => `
     <div class="step-card">
       <div class="fw-bold fs-5 mb-2">${step.title}</div>
       <div class="mb-2">${step.text}</div>
@@ -38,58 +17,43 @@ function renderTemplate(data) {
     </div>
   `).join('');
 
-  return `
-  <div class="bg-white p-4 rounded shadow-sm">
+  const primaryMonsters = merged.components.header.summary.primaryMonsters.map(monster => `
+    <li> ${monster} </li>
+  `).join('');
+  const additionalMonsters = merged.components.header.summary.additionalMonsters.map(monster => `
+    <li> ${monster} </li>
+  `).join('');
 
-    <!-- Title -->
-    <div class="mb-4">
-      <div class="fs-3 fw-bold text-primary">${header.title}</div>
-      <div class="text-muted mb-1">${header.description}</div>
-      <div class="small text-secondary">By <strong>${header.author.name}</strong></div>
-      <div class="small text-secondary mb-3">Created: ${header.dateCreated} | Modified: ${header.dateModified}</div>
-    </div>
+  // Replace steps placeholder first
+  let html = templateStr.replace('{{steps}}', steps);
+  html = html.replace('{{primaryMonsters}}', primaryMonsters);
+  html = html.replace('{{additionalMonsters}}', additionalMonsters);
 
-    <!-- Intro + Summary Row -->
-    <div class="row mb-4 g-3">
-      <!-- Introduction -->
-      <div class="col-12 col-lg-8">
-        <div class="bg-light-yellow p-3 rounded h-100">
-          <div class="section-title">Introduction</div>
-          <div class="mb-2">${content.introduction}</div>
-          ${content.introductionImage ? `<img src="${content.introductionImage}" class="img-fluid rounded" alt="">` : ''}
-        </div>
-      </div>
+  // Replace simple {{path.to.value}} placeholders
+  html = html.replace(/{{\s*([^}]+)\s*}}/g, (_, path) => {
+    const value = path.trim().split('.').reduce((acc, key) => acc?.[key], merged);
+    return value != null ? value : '';
+  });
 
-      <!-- Summary -->
-      <div class="col-12 col-lg-4">
-        <div class="summary-card h-100">
-          <div class="fs-5 fw-semibold mb-2">Summary</div>
-          <div><strong>Complexity:</strong> ${header.summary.complexity}</div>
-          <div><strong>Time:</strong> ${header.summary.time}</div>
-          <div><strong>Place:</strong> ${header.summary.place}</div>
-          <div><strong>Team Size:</strong> ${header.summary["team-size"]}</div>
-          <div><strong>Monster:</strong> ${header.summary.monster}</div>
-        </div>
-      </div>
-    </div>
+  // Replace fake {{#each components.tags}}...{{/each}} (basic support)
+  html = html.replace(/{{#each ([^}]+)}}([\s\S]+?){{\/each}}/g, (_, arrayPath, innerTemplate) => {
+    const values = arrayPath.split('.').reduce((acc, key) => acc?.[key], merged);
+    if (!Array.isArray(values)) return '';
+    return values.map(item => innerTemplate.replace(/{{this}}/g, item)).join('');
+  });
 
-    <!-- Steps -->
-    <div class="mb-4">
-      <div class="section-title">Steps</div>
-      ${stepsHtml}
-    </div>
+  return html;
+}
 
-    <!-- Tags -->
-    <div class="mb-4">
-      <div class="fw-semibold">Tags:</div>
-      <div class="text-muted">${tags.map(tag => `<span class="badge bg-secondary me-1">${tag}</span>`).join('')}</div>
-    </div>
-
-    <!-- Footer -->
-    <div class="border-top pt-3 mt-4">
-      <div>${footer.text}</div>
-      ${footer.image ? `<img src="${footer.image}" class="img-fluid mt-3 rounded" alt="">` : ''}
-    </div>
-  </div>
-`;
+function translate(t, c) {
+  if (typeof t === 'string') return c ?? '';
+  if (Array.isArray(t)) return Array.isArray(c) ? c.map((item, i) => translate(t[0], item)) : [];
+  if (typeof t === 'object' && t !== null) {
+    const result = {};
+    for (const key in t) {
+      result[key] = translate(t[key], c?.[key]);
+    }
+    return result;
+  }
+  return null;
 }

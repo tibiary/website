@@ -10,19 +10,37 @@
         "dateCreated": "2025-06-19",
         "dateModified": "2025-06-20",
         "author": {
-          "name": "André"
+          "name": "André",
+          "url": "https://github.com/boveloco"
         },
         "summary": {
           "complexity": "Medium",
           "time": "2 hours",
           "place": "Enchanted Woods",
           "team-size": 3,
-          "monster": "Forest Troll"
+          "primaryMonsters": [
+            "Forest Troll",
+            "Dire Wolf"
+          ],
+          "additionalMonsters": [
+            "Goblin Scout",
+            "Wild Boar",
+            "Giant Spider"
+          ]
         }
       },
       "content": {
-        "introduction": "Here's how the fight unfolded.",
-        "introductionImage": "intro.jpg",
+        "introduction": {
+          "text": "In the heart of the Enchanted Woods, a fierce battle awaits. <br> The heroes must navigate through dense foliage and face formidable foes to emerge victorious.",
+          "image": "https://yt3.googleusercontent.com/2eI1TjX447QZFDe6R32K0V2mjbVMKT5mIfQR-wK5bAsxttS_7qzUDS1ojoSKeSP0NuWd6sl7qQ=s900-c-k-c0x00ffffff-no-rj"
+        },
+        "route": {
+          "text": "The heroes will start at the edge of the forest, moving through narrow paths and avoiding traps set by the goblins. They will encounter various creatures along the way, leading to the final confrontation in a clearing.",
+          "images": [
+            "route1.jpg",
+            "route2.jpg"
+          ]
+        },
         "body": {
           "steps": [
             {
@@ -44,7 +62,11 @@
         "text": "Thanks for reading!",
         "image": "footer.jpg"
       },
-      "tags": ["battle", "forest", "epic"]
+      "tags": [
+        "battle",
+        "forest",
+        "epic"
+      ]
     }
   }
 }

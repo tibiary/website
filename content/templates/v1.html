@@ -1,16 +1,67 @@
 <div class="bg-white p-4 rounded shadow-sm">
-  <div class="fs-3 fw-bold text-primary">{{components.header.title}}</div>
-  <div class="text-muted">{{components.header.description}}</div>
-
-  <div class="summary-card mt-3">
-    <div class="fw-semibold">Summary</div>
-    <div><strong>Time:</strong> {{components.header.summary.time}}</div>
-    <div><strong>Monster:</strong> {{components.header.summary.monster}}</div>
+  <!-- Header -->
+  <div class="mb-4">
+    <div class="fs-3 fw-bold text-primary">{{components.header.title}}</div>
+    <div class="text-muted">{{components.header.description}}</div>
+    <div class="small text-secondary mt-2">By <a href="{{components.header.author.url}}"><strong>{{components.header.author.name}}</strong></a></div>
+    <div class="small text-secondary">Created: {{components.header.dateCreated}} | Modified:
+      {{components.header.dateModified}}</div>
   </div>
 
-  <div class="bg-light-yellow p-3 rounded mt-4">
-    <div class="fw-bold">Introduction</div>
-    <p>{{components.content.introduction}}</p>
-    <img src="{{components.content.introductionImage}}" class="img-fluid rounded" />
+  <!-- Introduction + Monsters +Summary -->
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-lg-7">
+      <div class="bg-light-yellow p-3 rounded h-100">
+        <div class="section-title">Introduction</div>
+        <img src="{{components.content.introduction.image}}" class="float-end img-thumbnail" height="200" width="200" alt="" />
+        <p>{{components.content.introduction.text}}</p>
+      </div> 
+    </div>
+
+    <div class="col-12 col-lg-3">
+      <div class="bg-light-blue p-3 rounded h-100">
+        <div class="section-title">Monsters</div>
+        <ul class="list-unstyled">
+          <li><strong>Primary Monsters:</strong></li>
+          <ul>
+            {{primaryMonsters}}
+          </ul>
+          <li><strong>Additional Monsters:</strong></li>
+          <ul>
+            {{additionalMonsters}}
+          </ul>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-2">
+      <div class="bg-light-blue p-3 rounded h-100">
+        <div class="fs-5 fw-semibold mb-2">Summary</div>
+        <div><strong>Complexity:</strong> {{components.header.summary.complexity}}</div>
+        <div><strong>Time:</strong> {{components.header.summary.time}}</div>
+        <div><strong>Place:</strong> {{components.header.summary.place}}</div>
+        <div><strong>Team Size:</strong> {{components.header.summary.team-size}}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Steps (this part will be generated in JS) -->
+  <div class="mb-4">
+    <div class="section-title">Steps</div>
+    {{steps}}
+  </div>
+
+  <!-- Tags -->
+  <div class="mb-4">
+    <div class="fw-semibold">Tags:</div>
+    <div class="text-muted">
+      {{#each components.tags}}<span class="badge bg-secondary me-1">{{this}}</span>{{/each}}
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="border-top pt-3 mt-4">
+    <div>{{components.footer.text}}</div>
+    <img src="{{components.footer.image}}" class="img-fluid mt-3 rounded" />
   </div>
 </div>
