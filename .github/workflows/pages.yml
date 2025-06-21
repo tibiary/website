@@ -43,7 +43,6 @@ jobs:
           # For the dev branch, deploy to a 'dev/' subdirectory: https://<owner>.github.io/<repo>/dev/
           echo "::set-output name=DEPLOYMENT_URL::https://${OWNER_NAME}.github.io/${REPO_NAME}/dev/"
           echo "::set-output name=DEPLOY_DESTINATION::dev"
-
         fi
 
     - name: Deploy to GitHub Pages
