@@ -21,8 +21,8 @@ class Requests {
             dataType: "json",
             url: this.API_URI + path,
             beforeSend: function(request) {
-                if(Cookies.get(SESSION_COOKIE_NAME)){
-                    request.setRequestHeader(SESSION_COOKIE_NAME, Cookies.get(SESSION_COOKIE_NAME));
+                if(Cookies.get(GLOBAL_SESSION_COOKIE_NAME)){
+                    request.setRequestHeader(GLOBAL_SESSION_COOKIE_NAME, Cookies.get(GLOBAL_SESSION_COOKIE_NAME));
                 }
             },
             error: function(err) {

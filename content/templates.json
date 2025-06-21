@@ -1,0 +1,46 @@
+{
+  "v1": {
+    "version": "string",
+    "dateCreated": "string",
+    "dateModified": "string",
+    "components": {
+      "header": {
+        "title": "string",
+        "description": "string",
+        "dateCreated": "string",
+        "dateModified": "string",
+        "author": {
+          "name": "string"
+        },
+        "summary": {
+          "complexity": "string",
+          "time": "string",
+          "place": "string",
+          "team-size": "number",
+          "monster": "string"
+        }
+      },
+      "content": {
+        "introduction": "string",
+        "introductionImage": "string",
+        "body": {
+          "steps": [
+            {
+              "title": "string",
+              "text": "string",
+              "image": "string",
+              "video": "string"
+            }
+          ]
+        }
+      },
+      "footer": {
+        "text": "string",
+        "image": "string"
+      },
+      "tags": [
+        "string"
+      ]
+    }
+  }
+}

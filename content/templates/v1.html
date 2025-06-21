@@ -1,0 +1,16 @@
+<div class="bg-white p-4 rounded shadow-sm">
+  <div class="fs-3 fw-bold text-primary">{{components.header.title}}</div>
+  <div class="text-muted">{{components.header.description}}</div>
+
+  <div class="summary-card mt-3">
+    <div class="fw-semibold">Summary</div>
+    <div><strong>Time:</strong> {{components.header.summary.time}}</div>
+    <div><strong>Monster:</strong> {{components.header.summary.monster}}</div>
+  </div>
+
+  <div class="bg-light-yellow p-3 rounded mt-4">
+    <div class="fw-bold">Introduction</div>
+    <p>{{components.content.introduction}}</p>
+    <img src="{{components.content.introductionImage}}" class="img-fluid rounded" />
+  </div>
+</div>

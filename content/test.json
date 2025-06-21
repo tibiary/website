@@ -1,0 +1,50 @@
+{
+  "v1": {
+    "version": "1.0.0",
+    "dateCreated": "2025-06-20",
+    "dateModified": "2025-06-21",
+    "components": {
+      "header": {
+        "title": "The Big Battle",
+        "description": "An epic fight in the forest.",
+        "dateCreated": "2025-06-19",
+        "dateModified": "2025-06-20",
+        "author": {
+          "name": "André"
+        },
+        "summary": {
+          "complexity": "Medium",
+          "time": "2 hours",
+          "place": "Enchanted Woods",
+          "team-size": 3,
+          "monster": "Forest Troll"
+        }
+      },
+      "content": {
+        "introduction": "Here's how the fight unfolded.",
+        "introductionImage": "intro.jpg",
+        "body": {
+          "steps": [
+            {
+              "title": "Step 1",
+              "text": "They approached silently.",
+              "image": "step1.jpg",
+              "video": "step1.mp4"
+            },
+            {
+              "title": "Step 2",
+              "text": "The ambush began.",
+              "image": "step2.jpg",
+              "video": "step2.mp4"
+            }
+          ]
+        }
+      },
+      "footer": {
+        "text": "Thanks for reading!",
+        "image": "footer.jpg"
+      },
+      "tags": ["battle", "forest", "epic"]
+    }
+  }
+}
